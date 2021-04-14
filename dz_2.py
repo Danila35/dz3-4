@@ -1,18 +1,17 @@
-import hashlib
-import os
+"""Задание 2"""
 
-pas = input("Введите пароль: ")
-salt = b''
-key = b''
+m = int(input("Введите число: "))
 
-salt = os.urandom(32)
-password = pas
+def fun(n=m, even=0, odd=0):
+    if n == 0:
+        return even, odd
+    else:
+        c_n = n % 10
+        n = n // 10
+        if c_n % 2 == 0:
+            even += 1
+        else:
+            odd += 1
+        return fun(n, even, odd)
 
-key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
-password_to_check = '123'
-new_key = hashlib.pbkdf2_hmac('sha256', password_to_check.encode('utf-8'), salt, 100000)
-
-if new_key == key:
-    print('Пароль правильный')
-else:
-    print('Пароль неправильный')
+print(fun(m))
